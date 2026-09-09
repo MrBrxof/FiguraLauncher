@@ -128,16 +128,14 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* ---------- Glass card with rotating border behind ---------- */
+        /* ---------- Glass card (без вращающейся рамки) ---------- */
         .glass-card {
-            position: relative;
             background: rgba(255, 255, 255, 0.035);
             backdrop-filter: blur(24px) saturate(1.5);
             -webkit-backdrop-filter: blur(24px) saturate(1.5);
             border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border-radius: 16px;
-            overflow: visible; /* чтобы псевдоэлемент не обрезался */
         }
 
         .glass-card:hover {
@@ -145,34 +143,6 @@
             border-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-4px) scale(1.01);
             box-shadow: 0 20px 60px rgba(108, 140, 255, 0.10), 0 0 80px rgba(108, 140, 255, 0.04);
-        }
-
-        /* Псевдоэлемент для вращающейся рамки (под карточкой) */
-        .glass-card::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 18px;
-            padding: 2px;
-            background: conic-gradient(from 0deg, transparent, rgba(108, 140, 255, 0.5), transparent, rgba(167, 139, 251, 0.5), transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1; /* помещаем под содержимое */
-        }
-
-        .glass-card:hover::after {
-            opacity: 1;
-            animation: spin 4s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
         }
 
         /* ---------- Liquid blobs ---------- */
@@ -538,7 +508,7 @@
                 <div class="w-20 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto rounded-full opacity-70"></div>
             </div>
 
-            <!-- Grid (6 пунктов, без "Полная кастомизация") -->
+            <!-- Grid (6 пунктов) -->
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
 
                 <!-- 1 -->
