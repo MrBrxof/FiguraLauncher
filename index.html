@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.1">
-    <title>Figura Launcher</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Figura Launcher — Liquid Glass</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -18,274 +18,632 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        darkBg: '#0f1015',
-                        panelBg: '#181920',
-                        primary: '#3b82f6',
-                        primaryHover: '#2563eb',
-                        accent: '#60a5fa'
+                        glass: 'rgba(255, 255, 255, 0.06)',
+                        glassBorder: 'rgba(255, 255, 255, 0.10)',
+                        glassHover: 'rgba(255, 255, 255, 0.12)',
+                        primary: '#6C8CFF',
+                        primaryLight: '#8AA9FF',
+                        accent: '#A78BFA',
+                        accentLight: '#C4B5FD',
+                        teal: '#5EEAD4',
                     },
                     animation: {
-                        'blob': 'blob 7s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'liquid-1': 'liquid1 14s ease-in-out infinite alternate',
+                        'liquid-2': 'liquid2 18s ease-in-out infinite alternate',
+                        'liquid-3': 'liquid3 22s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delay': 'float 6s ease-in-out 3s infinite',
+                        'fade-up': 'fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'shimmer': 'shimmer 3s ease-in-out infinite',
+                        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
                     },
                     keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        liquid1: {
+                            '0%': { transform: 'translate(0%, 0%) scale(1) rotate(0deg)' },
+                            '33%': { transform: 'translate(10%, -15%) scale(1.2) rotate(4deg)' },
+                            '66%': { transform: 'translate(-8%, 10%) scale(0.9) rotate(-3deg)' },
+                            '100%': { transform: 'translate(5%, -5%) scale(1.1) rotate(2deg)' },
                         },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
+                        liquid2: {
+                            '0%': { transform: 'translate(0%, 0%) scale(1) rotate(0deg)' },
+                            '50%': { transform: 'translate(-12%, 8%) scale(1.3) rotate(-6deg)' },
+                            '100%': { transform: 'translate(8%, -12%) scale(0.95) rotate(5deg)' },
+                        },
+                        liquid3: {
+                            '0%': { transform: 'translate(0%, 0%) scale(1) rotate(0deg)' },
+                            '40%': { transform: 'translate(15%, 5%) scale(1.15) rotate(3deg)' },
+                            '80%': { transform: 'translate(-10%, -8%) scale(0.85) rotate(-4deg)' },
+                            '100%': { transform: 'translate(5%, 10%) scale(1.05) rotate(-1deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px) scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        glowPulse: {
+                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+                        },
+                    },
+                },
+            },
+        };
     </script>
-    
+
     <style>
-        body {
-            background-color: #0f1015; /* Глубокий тёмный цвет */
-            color: #e5e7eb;
-            overflow-x: hidden;
+        /* ---------- Global ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Утилита для задержки анимаций */
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-        .delay-400 { animation-delay: 400ms; }
+        body {
+            background: #0a0a12;
+            color: #e8edf5;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+            position: relative;
+        }
 
-        /* Кастомный скроллбар */
+        /* ---------- Scrollbar ---------- */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #0f1015; 
+            background: rgba(255, 255, 255, 0.02);
         }
         ::-webkit-scrollbar-thumb {
-            background: #374151; 
-            border-radius: 4px;
+            background: rgba(108, 140, 255, 0.4);
+            border-radius: 12px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #4b5563; 
+            background: rgba(108, 140, 255, 0.6);
         }
 
-        /* Эффект свечения для карточек преимуществ */
-        .feature-card:hover {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-            border-color: rgba(59, 130, 246, 0.3);
+        /* ---------- Glass mixin (utility) ---------- */
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
-        /* Анимация спиннера для кнопки */
-        .spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 3px solid #fff;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            display: none; /* Скрыто по умолчанию */
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(32px) saturate(1.6);
+            -webkit-backdrop-filter: blur(32px) saturate(1.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* ---------- Glass card with rotating border behind ---------- */
+        .glass-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(24px) saturate(1.5);
+            -webkit-backdrop-filter: blur(24px) saturate(1.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 16px;
+            overflow: visible; /* чтобы псевдоэлемент не обрезался */
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(108, 140, 255, 0.10), 0 0 80px rgba(108, 140, 255, 0.04);
+        }
+
+        /* Псевдоэлемент для вращающейся рамки (под карточкой) */
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 18px;
+            padding: 2px;
+            background: conic-gradient(from 0deg, transparent, rgba(108, 140, 255, 0.5), transparent, rgba(167, 139, 251, 0.5), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1; /* помещаем под содержимое */
+        }
+
+        .glass-card:hover::after {
+            opacity: 1;
+            animation: spin 4s linear infinite;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        /* Состояния кнопки при загрузке */
-        .btn-loading .btn-text,
-        .btn-loading .btn-icon {
+        /* ---------- Liquid blobs ---------- */
+        .blob-container {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px) saturate(1.8);
+            opacity: 0.5;
+            mix-blend-mode: screen;
+        }
+
+        .blob-1 {
+            width: 50vw;
+            height: 50vw;
+            top: -15%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(108, 140, 255, 0.5), rgba(167, 139, 251, 0.2));
+            animation: liquid1 16s ease-in-out infinite alternate;
+        }
+
+        .blob-2 {
+            width: 40vw;
+            height: 40vw;
+            bottom: -10%;
+            right: -8%;
+            background: radial-gradient(circle, rgba(94, 234, 212, 0.35), rgba(108, 140, 255, 0.15));
+            animation: liquid2 20s ease-in-out infinite alternate;
+        }
+
+        .blob-3 {
+            width: 35vw;
+            height: 35vw;
+            top: 30%;
+            right: 20%;
+            background: radial-gradient(circle, rgba(167, 139, 251, 0.4), rgba(108, 140, 255, 0.1));
+            animation: liquid3 24s ease-in-out infinite alternate;
+        }
+
+        .blob-4 {
+            width: 25vw;
+            height: 25vw;
+            bottom: 20%;
+            left: 5%;
+            background: radial-gradient(circle, rgba(94, 234, 212, 0.25), rgba(167, 139, 251, 0.1));
+            animation: liquid1 18s ease-in-out infinite alternate-reverse;
+        }
+
+        /* ---------- Shimmer text ---------- */
+        .shimmer-text {
+            background: linear-gradient(120deg, #e8edf5 0%, #6C8CFF 25%, #A78BFA 50%, #5EEAD4 75%, #e8edf5 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 5s ease-in-out infinite;
+        }
+
+        /* ---------- Button ---------- */
+        .btn-primary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(108, 140, 255, 0.9), rgba(167, 139, 251, 0.9));
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(108, 140, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent 60%);
+            pointer-events: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(108, 140, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary .spinner {
+            display: none;
+            width: 22px;
+            height: 22px;
+            border: 2.5px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .btn-primary.loading .btn-text,
+        .btn-primary.loading .btn-icon {
             display: none;
         }
-        .btn-loading .spinner {
+        .btn-primary.loading .spinner {
             display: block;
         }
-        .btn-loading {
-            pointer-events: none; /* Запрещаем повторные клики */
-            opacity: 0.9;
+        .btn-primary.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* ---------- Social links ---------- */
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #b0b8c8;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .social-link.tg:hover {
+            background: rgba(42, 171, 238, 0.12);
+            border-color: rgba(42, 171, 238, 0.25);
+            color: #2AABEE;
+        }
+
+        .social-link.support:hover {
+            background: rgba(236, 72, 153, 0.10);
+            border-color: rgba(236, 72, 153, 0.20);
+            color: #f472b6;
+        }
+
+        /* ---------- Responsive tweaks ---------- */
+        @media (max-width: 640px) {
+            .blob-1 {
+                width: 80vw;
+                height: 80vw;
+                top: -20%;
+            }
+            .blob-2 {
+                width: 60vw;
+                height: 60vw;
+                bottom: -10%;
+            }
+            .blob-3 {
+                width: 50vw;
+                height: 50vw;
+                top: 40%;
+                right: 5%;
+            }
+            .btn-primary {
+                padding: 14px 28px;
+                font-size: 1rem;
+                width: 100%;
+            }
+            .social-link {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .glass-card {
+                padding: 20px !important;
+            }
+        }
+
+        /* ---------- Utility delays ---------- */
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        .delay-3 {
+            animation-delay: 0.35s;
+        }
+        .delay-4 {
+            animation-delay: 0.5s;
+        }
+        .delay-5 {
+            animation-delay: 0.65s;
+        }
+
+        .op-0 {
+            opacity: 0;
+        }
+
+        /* ---------- Fly-in animation for screenshot ---------- */
+        @keyframes flyIn {
+            0% {
+                transform: translate(-30%, -20%) scale(0.85) rotate(-3deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        .fly-in {
+            animation: flyIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ---------- Feature icon wrapper ---------- */
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(108, 140, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .glass-card:hover .feature-icon {
+            background: rgba(108, 140, 255, 0.15);
+            border-color: rgba(108, 140, 255, 0.15);
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* ---------- Badge ---------- */
+        .badge-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px 6px 12px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #b0b8c8;
+        }
+
+        .badge-pulse .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #5EEAD4;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        /* ---------- Screenshot wrapper ---------- */
+        .screenshot-wrap {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .screenshot-wrap:hover {
+            transform: translateY(-6px) scale(1.005);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 40px 100px rgba(108, 140, 255, 0.08), 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .screenshot-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ---------- Glow overlay on screenshot ---------- */
+        .screenshot-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 20%, rgba(108, 140, 255, 0.06), transparent 60%);
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center relative selection:bg-primary/30 selection:text-white pb-20">
+<body>
 
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] mix-blend-screen animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[35%] h-[35%] rounded-full bg-purple-600/20 blur-[120px] mix-blend-screen animate-blob delay-200"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[50%] h-[50%] rounded-full bg-blue-800/20 blur-[150px] mix-blend-screen animate-blob delay-400"></div>
+    <!-- ====== LIQUID BLOBS ====== -->
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
     </div>
 
-    <main class="w-full max-w-6xl flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 pt-20">
-        
-        <div class="animate-fade-in-up opacity-0 w-full flex flex-col items-center">
-            <div class="inline-flex items-center space-x-2 bg-panelBg/80 border border-gray-700/50 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="text-sm font-medium text-gray-300">Версия 1.1 уже доступна</span>
+    <!-- ====== MAIN ====== -->
+    <main class="w-full max-w-6xl flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 relative z-10">
+
+        <!-- ====== HERO ====== -->
+        <div class="w-full flex flex-col items-center text-center op-0 animate-fade-up">
+
+            <!-- Badge -->
+            <div class="badge-pulse mb-6">
+                <span class="dot"></span>
+                <span>Версия 1.1 уже доступна</span>
             </div>
-            <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter mb-8 text-white drop-shadow-2xl">
-                Figura <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Launcher</span>
+
+            <!-- Title -->
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-5">
+                <span class="text-white">Figura</span>
+                <span class="shimmer-text">Launcher</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mb-12 font-light">
-                Новый взгляд на лаунчеры. Быстрее, красивере и безопаснее, чем когда-либо.
+
+            <!-- Subtitle -->
+            <p class="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl font-light leading-relaxed">
+                Новый взгляд на лаунчеры. Быстрее, красивее и безопаснее, чем когда-либо.
             </p>
         </div>
 
-        <div class="w-full max-w-5xl relative animate-fade-in-up delay-100 opacity-0 mb-24 group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-            <div class="relative rounded-2xl overflow-hidden bg-panelBg shadow-2xl border border-gray-700/50 transform transition-transform duration-500 hover:-translate-y-1">
-                <img 
-                    src="screen1.png" 
-                    alt="Интерфейс Figura Launcher" 
-                    class="w-full h-auto object-cover"
-                    onerror="this.onerror=null; this.src='https://placehold.co/1200x675/181920/60a5fa?text=Screen+1+(Здесь+будет+screen1.png)&font=Inter'"
+        <!-- ====== SCREENSHOT with fly-in ====== -->
+        <div class="w-full max-w-5xl mt-12 md:mt-16 op-0 fly-in delay-1">
+            <div class="screenshot-wrap">
+                <img
+                src="screen1.png"
+                alt="Figura Launcher интерфейс"
+                onerror="this.onerror=null; this.src='https://placehold.co/1200x675/111122/6C8CFF?text=Figura+Launcher+%E2%80%A2+Screen+1&font=Inter'"
                 />
+                <div class="screenshot-glow"></div>
             </div>
         </div>
 
-        <div class="w-full animate-fade-in-up delay-200 opacity-0 mb-24">
+        <!-- ====== FEATURES ====== -->
+        <div class="w-full mt-24 md:mt-28 op-0 animate-fade-up delay-2">
+
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">
-                    Почему выбирают нас?
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+                    Почему <span class="shimmer-text">выбирают нас</span>
                 </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full"></div>
+                <div class="w-20 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto rounded-full opacity-70"></div>
             </div>
-            
-            <!-- Сетка с преимуществами -->
-            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-                
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+
+            <!-- Grid (6 пунктов, без "Полная кастомизация") -->
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+
+                <!-- 1 -->
+                <li class="glass-card rounded-2xl p-6 flex flex-col items-start">
+                    <div class="feature-icon text-primary mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Красивый интерфейс</h3>
-                    <p class="text-gray-400 text-sm">Удобный и интуитивно понятный дизайн, созданный для комфортной игры.</p>
-                </li>
-                
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Полностью безопасен</h3>
-                    <p class="text-gray-400 text-sm">Ваши данные под надёжной защитой. Мы не собираем лишнюю информацию.</p>
-                </li>
-                
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Нет рекламы</h3>
-                    <p class="text-gray-400 text-sm">Наслаждайтесь чистым интерфейсом без навязчивых баннеров и всплывающих окон.</p>
-                </li>
-                
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Бесплатно навсегда</h3>
-                    <p class="text-gray-400 text-sm">Лаунчер был и будет абсолютно бесплатным для всех пользователей.</p>
+                    <h3 class="text-lg font-semibold text-white mb-1.5">Красивый интерфейс</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Удобный и интуитивно понятный дизайн, созданный для комфортной игры.</p>
                 </li>
 
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <!-- 2 -->
+                <li class="glass-card rounded-2xl p-6 flex flex-col items-start">
+                    <div class="feature-icon text-emerald-400 mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Система скинов</h3>
-                    <p class="text-gray-400 text-sm">Устанавливайте любые скины в пару кликов и выделяйтесь среди других игроков.</p>
+                    <h3 class="text-lg font-semibold text-white mb-1.5">Полностью безопасен</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Ваши данные под надёжной защитой. Мы не собираем лишнюю информацию.</p>
                 </li>
 
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <!-- 3 -->
+                <li class="glass-card rounded-2xl p-6 flex flex-col items-start">
+                    <div class="feature-icon text-purple-400 mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636" /></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Установка модов</h3>
-                    <p class="text-gray-400 text-sm">Огромная встроенная база модов. Установка происходит автоматически и без ошибок.</p>
+                    <h3 class="text-lg font-semibold text-white mb-1.5">Нет рекламы</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Наслаждайтесь чистым интерфейсом без навязчивых баннеров и всплывающих окон.</p>
                 </li>
 
-                <li class="feature-card group flex flex-col p-6 bg-panelBg/60 border border-gray-800 rounded-2xl backdrop-blur-sm transition-all duration-300 lg:col-span-3 max-w-2xl mx-auto w-full text-center items-center">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                <!-- 4 -->
+                <li class="glass-card rounded-2xl p-6 flex flex-col items-start">
+                    <div class="feature-icon text-amber-400 mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Полная кастомизация</h3>
-                    <p class="text-gray-400 text-sm">Настройте внешний вид лаунчера под себя.</p>
+                    <h3 class="text-lg font-semibold text-white mb-1.5">Бесплатно навсегда</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Лаунчер был и будет абсолютно бесплатным для всех пользователей.</p>
                 </li>
+
+                <!-- 5 -->
+                <li class="glass-card rounded-2xl p-6 flex flex-col items-start">
+                    <div class="feature-icon text-pink-400 mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-1.5">Система скинов</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Устанавливайте любые скины в пару кликов и выделяйтесь среди других.</p>
+                </li>
+
+                <!-- 6 -->
+                <li class="glass-card rounded-2xl p-6 flex flex-col items-start">
+                    <div class="feature-icon text-orange-400 mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-1.5">Установка модов</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Огромная встроенная база модов. Установка автоматическая и без ошибок.</p>
+                </li>
+
             </ul>
         </div>
 
-        <div class="animate-fade-in-up delay-300 opacity-0 relative">
-            <button 
-                id="downloadBtn"
-                class="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white transition-all duration-300 bg-primary hover:bg-primaryHover rounded-xl shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_35px_rgba(59,130,246,0.5)] hover:-translate-y-1 overflow-hidden"
-            >
-                <!-- Эффект блика при наведении -->
-                <div class="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] skew-x-[-20deg]"></div>
-                
-                <svg class="btn-icon w-6 h-6 mr-3 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/>
-                </svg>
-                <span class="btn-text text-lg md:text-xl relative z-10">Скачать для Windows</span>
-                
-                <!-- Кружок загрузки -->
+        <!-- ====== CTA ====== -->
+        <div class="w-full flex flex-col items-center mt-16 md:mt-20 op-0 animate-fade-up delay-3">
+
+            <!-- Download button -->
+            <button id="downloadBtn" class="btn-primary w-full sm:w-auto">
+                <svg class="btn-icon w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
+                <span class="btn-text">Скачать для Windows</span>
                 <div class="spinner"></div>
             </button>
-            <p class="mt-4 text-sm text-gray-500">Версия 1.1 | 36.1 MB | Windows 10/11</p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center items-center w-full">
-                <!-- Кнопка Telegram -->
-                <a 
-                    href="https://t.me/Brxof" 
-                    target="_blank"
-                    class="group flex items-center px-6 py-3 bg-panelBg/80 border border-gray-700/50 rounded-xl hover:bg-[#2AABEE]/10 hover:border-[#2AABEE]/50 transition-all duration-300 text-gray-300 hover:text-[#2AABEE] hover:-translate-y-1 backdrop-blur-sm w-full sm:w-auto justify-center"
-                >
-                    <svg class="w-5 h-5 mr-2 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.04.01.24 0 .24z"/>
-                    </svg>
+
+            <p class="mt-4 text-xs text-gray-500 tracking-wide">Версия 1.1 &bull; 36.1 MB &bull; Windows 10 / 11</p>
+
+            <!-- Social links -->
+            <div class="flex flex-col sm:flex-row gap-3 mt-8 w-full sm:w-auto">
+
+                <a href="https://t.me/Brxof" target="_blank" class="social-link tg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.04.01.24 0 .24z"/></svg>
                     Telegram
                 </a>
 
-                <!-- Кнопка Поддержки -->
-                <a 
-                    href="https://dalink.to/brxof" 
-                    target="_blank"
-                    class="group flex items-center px-6 py-3 bg-panelBg/80 border border-gray-700/50 rounded-xl hover:bg-pink-500/10 hover:border-pink-500/50 transition-all duration-300 text-gray-300 hover:text-pink-400 hover:-translate-y-1 backdrop-blur-sm w-full sm:w-auto justify-center"
-                >
-                    <svg class="w-5 h-5 mr-2 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                    </svg>
+                <a href="https://dalink.to/brxof" target="_blank" class="social-link support">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     Поддержать проект
                 </a>
+
             </div>
         </div>
 
     </main>
 
+    <!-- ====== SCRIPT ====== -->
     <script>
         document.getElementById('downloadBtn').addEventListener('click', function(e) {
-            e.preventDefault(); // Предотвращаем переход по ссылке
-            
+            e.preventDefault();
             const btn = this;
-            
-            // Если уже загружается, игнорируем клик
-            if (btn.classList.contains('btn-loading')) return;
-            
-            // Добавляем класс состояния загрузки
-            btn.classList.add('btn-loading');
-            
-            // Небольшая задержка для красивого визуального эффекта загрузки
-            setTimeout(() => {
-                // Начинаем реальное скачивание вашего файла
-                window.location.href = 'https://github.com/MrBrxof/installerfiguralauncher/releases/download/installerfiguralauncher/Figura.Launcher.Installer.exe';
-                
-                // Возвращаем кнопку в исходное состояние
-                btn.classList.remove('btn-loading');
-            }, 1500);
-        });
+            if (btn.classList.contains('loading')) return;
 
-        // Добавляем кастомную анимацию блика для Tailwind
-        tailwind.config.theme.extend.keyframes.shimmer = {
-            '100%': { transform: 'translateX(200%)' }
-        };
+            btn.classList.add('loading');
+
+            setTimeout(() => {
+                window.location.href =
+                    'https://github.com/MrBrxof/installerfiguralauncher/releases/download/installerfiguralauncher/Figura.Launcher.Installer.exe';
+                btn.classList.remove('loading');
+            }, 1200);
+        });
     </script>
+
 </body>
 </html>
